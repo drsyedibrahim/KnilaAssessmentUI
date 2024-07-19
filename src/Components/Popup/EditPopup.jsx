@@ -6,10 +6,12 @@ import { AddContactDataToDB } from '../../Controller/ContactController'
 const EditModal = ({ show, handleClose, formdata, children }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
-  const btnAddsubmit = (e) => {
+  const btnAddsubmit = async (e) => {
     e.preventDefault();
-    AddContactDataToDB(formdata);
-    window.location.reload();
+    const res = await AddContactDataToDB(formdata);
+    if (res.isSuccess){
+      window.location.reload();
+    }
   }
 
   return (

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosInstance from '../Helper/axiosInstance';
 
 const API_URL = 'https://localhost:7115/api';
 
@@ -24,10 +25,7 @@ const apiService = {
       };
 
       try {
-          const response = await axios.get(`${API_URL}/Auth/GetAllContactList`, { 
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
+          const response = await axiosInstance.get('/Auth/GetAllContactList', { 
             params: params,
           }); 
 
@@ -40,12 +38,9 @@ const apiService = {
 
   GetContactDataByIDFromDB: async (contactID) => {
     try {
-      const response = await axios.get(`${API_URL}/Auth/GetByContactID`, { 
+      const response = await axiosInstance.get('/Auth/GetByContactID', { 
         params: {
           contactID: contactID
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`,
         }
       }); 
   
@@ -58,12 +53,9 @@ const apiService = {
 
   DeleteContactDataByIDFromDB: async (contactID) => {
     try {
-      const response = await axios.get(`${API_URL}/Auth/DeleteContactByContactID`, { 
+      const response = await axiosInstance.get('/Auth/DeleteContactByContactID', { 
         params: {
           contactID: contactID
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`,
         }
       }); 
   
@@ -78,14 +70,11 @@ const apiService = {
   PostContactDataToDB: async (formData) => {
    debugger
     try {
-        const response = await axios.post(`${API_URL}/Auth/AddOrEditContact`, formData,
-        { 
+        const response = await axiosInstance.post('/Auth/AddOrEditContact', formData, {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         }); 
-
         return response.data;
     } catch (error) {
         console.error("Error fetching contact list", error);

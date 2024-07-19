@@ -4,6 +4,7 @@ import apiService from '../Model/UserModel';
 export const AddContactDataToDB = async (formData) => {
     try {
         const data = await apiService.PostContactDataToDB(formData);
+        debugger;
         return data;
     } catch (err) {
         console.log(err);
@@ -22,7 +23,7 @@ export const getContactDataByID = async (contactID) => {
 export const deleteContactDataByID = async (contactID) => {
     try {
         const data = await apiService.DeleteContactDataByIDFromDB(contactID);
-        return data.resultData;
+        return data;
     } catch (err) {
         console.log(err);
     } 

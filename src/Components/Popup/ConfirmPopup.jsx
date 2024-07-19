@@ -6,10 +6,12 @@ import { deleteContactDataByID } from '../../Controller/ContactController'
 const ConfirmModal = ({ show, handleClose, contactID, children }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
-  const btnDeletesubmit = (e) => {
+  const btnDeletesubmit = async (e) => {
     e.preventDefault();
-    deleteContactDataByID(contactID);
-    window.location.reload();
+    const res = await deleteContactDataByID(contactID);
+    if (res.isSuccess){
+      window.location.reload();
+    }
   }
 
   return (
