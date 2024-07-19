@@ -7,7 +7,7 @@ const Header = ({ token }) => {
     };
 
     return (
-        <><h1>Dashboard</h1><button onClick={logout}>Logout</button></>
+        <><h3>Dashboard</h3><button onClick={logout}>Logout</button></>
     );
 };
 
