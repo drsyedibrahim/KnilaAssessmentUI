@@ -42,6 +42,24 @@ const Contact = ({ setToken }) => {
     postalCode: '',
   });
 
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (searchQuery) {
+        inputRef.current.focus();
+      }
+    };
+
+    document.addEventListener('keyup', handleKeyPress);
+
+    if (searchQuery) {
+      inputRef.current.focus();
+    }
+
+    return () => {
+      document.removeEventListener('keyup', handleKeyPress);
+    };
+  }, [searchQuery, currentPage, contactsPerPage, showModal, editShowModal, deleteShowModal]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     SetFormData(prevState => ({
@@ -88,6 +106,7 @@ const Contact = ({ setToken }) => {
       console.error("Error in btnDeleteAction:", error);
     }
   };
+
   const handleContactsPerPageChange = (e) => {
     setContactsPerPage(parseInt(e.target.value, 10));
     setCurrentPage(1);
@@ -166,9 +185,6 @@ const Contact = ({ setToken }) => {
 
   const handleSearch = (e) =>{
     setSearchQuery(e.target.value);
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
   };
 
   const indexOfLastContact = currentPage * contactsPerPage;
